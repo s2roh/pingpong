@@ -25,7 +25,7 @@
 		<Panel Height="200">
 			<ping.Text Value="Table Tennis Scoreboard" FontSize="30" Alignment="Center" />
 		</Panel>
-		<ping.Button Text="선수관리" Clicked="{goPlayerList}" />
+		<ping.Button Text="선수관리 test 중" Clicked="{goPlayerList}" />
 		<ping.Button Text="게임시작" Clicked="{goGameSet}" />
 		<ping.Button Text="게임결과관리" Clicked="{goGameResult}" />
 		<ping.Button Text="대회관리" Clicked="{goGameManage}" />
