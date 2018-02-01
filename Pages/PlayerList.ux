@@ -53,7 +53,7 @@
 		<Text Value="back" Alignment="TopRight" Clicked="{goBack}" />
 		<StackPanel>
 			<Rectangle Height="50" />
-			<ping.Text Value="선수관리" FontSize="25" Alignment="Center" />
+			<ping.Text Value="선수관리깃테스트" FontSize="25" Alignment="Center" />
 			<Grid RowCount="1" ColumnCount="4" ContentAlignment="Center">
 				<ping.Text Value="등번호" />
 		        <ping.Text Value="성명" />
