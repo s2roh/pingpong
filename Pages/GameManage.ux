@@ -1,0 +1,97 @@
+<Page ux:Class="GameManage">
+	<Router ux:Dependency="router" />
+
+	<JavaScript>
+	    
+	    var Observable = require("FuseJS/Observable");
+	    var results = Observable();
+	    var values = Observable();
+
+	    var list = Observable(function(){
+	    	return values.toArray();
+	    });
+
+ 		var status = 0;
+		var response_ok = false;
+		var matchResults = null;
+	
+		fetch('http://203.255.2.68:3000/playerlist').then(function(response) {
+		    status = response.status;  // Get the HTTP status code
+		    console.log(status);
+		    response_ok = response.ok; // Is response.status in the 200-range?
+		    return response.json();    // This returns a promise
+		}).then(function(responseObject) {
+	  		results.replaceAll(responseObject);
+			// results = JSON.parse(results);
+			console.log('results=' + results);
+		}).catch(function(err) {
+				console.log('error=' + err);
+		});
+	
+		function goHome(){
+			router.goto("home");
+		}
+		function goBack(){
+			router.goBack();
+		}
+		function goMatchGenerate(arg){
+			console.log(JSON.stringify(list._values[0]));
+			var data = JSON.stringify(list._values[0]) ;
+			fetch('http://203.255.2.68:3000/matchgenerate',{
+				method : "POST",
+				headers : {"Content-type" : "application/x-www-form-urlencoded; charset=UTF-8"},
+				body : "data=" + data
+			}).then(function(response) {
+			    status = response.status;  // Get the HTTP status code
+			    console.log(status);
+			    response_ok = response.ok; // Is response.status in the 200-range?
+			    return response.json();    // This returns a promise
+			}).then(function(responseObject) {
+		  		matchResults.replaceAll(responseObject);
+				// results = JSON.parse(results);
+				console.log('results=' + matchResult);
+			}).catch(function(err) {
+				console.log('error=' + err);
+			});
+		}
+
+		module.exports = {
+			goHome : goHome,
+			goBack : goBack,
+			goMatchGenerate : goMatchGenerate,
+			results : results,
+			values : values,
+			list : list
+		} 
+	</JavaScript>
+	<DockPanel ClipToBounds="true">
+		<Text Value="home" Alignment="TopLeft" Clicked="{goHome}" />
+		<Text Value="back" Alignment="TopRight" Clicked="{goBack}" />
+		<StackPanel>
+			<Rectangle Height="50" />
+			<ping.Text Value="대회관리" FontSize="25" Alignment="Center" />
+			<Grid RowCount="1" ColumnCount="5" ContentAlignment="Center">
+				<ping.Text Value="선택" />
+				<ping.Text Value="등번호" />
+		        <ping.Text Value="성명" />
+				<ping.Text Value="나이" />
+				<ping.Text Value="랭킹" />
+			</Grid>
+
+			<Each Items="{results}">
+				<Grid RowCount="1" ColumnCount="5" ContentAlignment="Center">
+					<Selection Values="{values}" />
+					<CheckBox ux:Name="myCheckbox" Value="{id}"/>
+
+					<ping.Text Value="{id}" />
+				    <ping.Text Value="{name}" />
+					<ping.Text Value="{age}" />
+					<ping.Text Value="{rank}" />
+				</Grid>	
+				<Separator />
+	        </Each>				   	
+		</StackPanel>
+		<ping.Button Dock="Bottom" Text="대진표작성" Clicked="{goMatchGenerate}" />
+	</DockPanel>
+
+</Page>

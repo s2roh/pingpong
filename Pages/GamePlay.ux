@@ -1,0 +1,47 @@
+<Page ux:Class="GamePlay">
+	<Router ux:Dependency="router" />
+
+	<JavaScript>
+		function goHome(){
+			router.push("home");
+		}
+		function goBack(){
+			router.goBack();
+		}
+		function goGamePlay(){
+			router.push("gameplay");
+		}
+		module.exports = {
+			goHome : goHome,
+			goBack : goBack,
+			goGamePlay : goGamePlay
+		}
+	</JavaScript>
+	<DockPanel>
+		<Text Value="home" Alignment="TopLeft" Clicked="{goHome}" />
+		<Text Value="back" Alignment="TopRight" Clicked="{goBack}" />
+	</DockPanel>
+	<StackPanel>
+		<Rectangle Height="50" />
+		<ping.Text Value="게임실행중.." FontSize="25" Alignment="Center" />
+		<Grid>
+			<PageControl>
+				<ScorePanel Score="0" />
+				<ScorePanel Score="1" />
+				<ScorePanel Score="2" />
+				<ScorePanel Score="3" />
+				<ScorePanel Score="4" />
+				<ScorePanel Score="5" />
+			</PageControl>
+			<PageControl>
+				<ScorePanel2 Score="0" />
+				<ScorePanel2 Score="1" />
+				<ScorePanel2 Score="2" />
+				<ScorePanel2 Score="3" />
+				<ScorePanel2 Score="4" />
+				<ScorePanel2 Score="5" />
+			</PageControl>
+		</Grid>
+	</StackPanel>
+	
+</Page>

@@ -1,0 +1,28 @@
+<Page ux:Class="Fight">
+	<Router ux:Dependency="router" />
+
+	<JavaScript>
+		function goHome(){
+			router.push("home");
+		}
+		function goFightView(){
+			router.push("fightview");
+		}
+		module.exports = {
+			goHome : goHome,
+			goFightView : goFightView
+		}
+	</JavaScript>
+	
+	<DockPanel>
+		<Text Value="home" Alignment="TopLeft" Clicked="{goHome}" />
+		<Text Value="back" Alignment="TopRight" Clicked="{goBack}" />
+	</DockPanel>
+	<StackPanel>
+		<ping.Text Value="도전장보내기" FontSize="25" Alignment="Center" />
+	</StackPanel>
+	<Grid RowCount="1" ColumnCount="2">
+		<ping.Button Text="전송" Clicked="{goFightView}" />
+		<ping.Button Text="포기" Clicked="{goHome}" />
+	</Grid>
+</Page>

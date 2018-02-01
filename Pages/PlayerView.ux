@@ -1,0 +1,89 @@
+<Page ux:Class="PlayerView">
+	<Router ux:Dependency="router" />
+
+	<JavaScript>
+	    var data = this.Parameter;
+		
+		function goHome(){
+			router.push("home");
+		}
+		function goBack(){
+			router.goBack();
+		}
+
+		function goPlayerEdit(){
+			router.goto("playeredit",data._values[0]);
+		}
+
+		function goPlayerDelete(){
+			console.log(JSON.stringify(data));
+			var id = data._values[0].id;
+
+			fetch('http://203.255.2.68:3000/playerdelete?id='+id).then(function(response) {
+			    status = response.status;  // Get the HTTP status code
+			    response_ok = response.ok; // Is response.status in the 200-range?
+			    return response;    // This returns a promise
+			}).then(function(responseObject) {
+				router.goto("playerlist");
+			}).catch(function(err) {
+					console.log('error=' + err);
+			});
+
+		}
+
+		module.exports = {
+			goHome : goHome,
+			goBack : goBack,
+			goPlayerEdit : goPlayerEdit,
+			goPlayerDelete : goPlayerDelete,
+			data : data
+		} 
+	</JavaScript>
+	<DockPanel>
+		<Text Value="home" Alignment="TopLeft" Clicked="{goHome}" />
+		<Text Value="back" Alignment="TopRight" Clicked="{goBack}" />
+		
+		<StackPanel>
+			<Rectangle Height="50" />
+			<ping.Text Value="선수상세정보" FontSize="25" Alignment="Center" />
+			<Grid RowCount="4" ColumnCount="2" Columns="4*,6*">
+				<Rectangle Background="#eee">
+					<ping.Text Value="번호" FontSize="25" Alignment="Center" Row="0" Column="0" />
+					<Stroke Width="1" Color="#E88561" />
+				</Rectangle>
+				<Rectangle>
+					<ping.Text Value="{data.id}" FontSize="25" Alignment="Center" />
+					<Stroke Width="1" Color="#E88561" />
+				</Rectangle>
+				<Rectangle Background="#eee">
+					<ping.Text Value="성명" FontSize="25" Alignment="Center" Row="0" Column="0" />
+					<Stroke Width="1" Color="#E88561" />
+				</Rectangle>
+				<Rectangle>
+					<ping.Text Value="{data.name}" FontSize="25" Alignment="Center" />
+					<Stroke Width="1" Color="#E88561" />
+				</Rectangle>
+				<Rectangle Background="#eee">
+					<ping.Text Value="나이" FontSize="25" Alignment="Center" Row="0" Column="0" />
+					<Stroke Width="1" Color="#E88561" />
+				</Rectangle>
+				<Rectangle>
+					<ping.Text Value="{data.age}" FontSize="25" Alignment="Center" />
+					<Stroke Width="1" Color="#E88561" />
+				</Rectangle>
+				<Rectangle Background="#eee">
+					<ping.Text Value="랭킹" FontSize="25" Alignment="Center" Row="0" Column="0" />
+					<Stroke Width="1" Color="#E88561" />
+				</Rectangle>
+				<Rectangle>
+					<ping.Text Value="{data.rank}" FontSize="25" Alignment="Center" />
+					<Stroke Width="1" Color="#E88561" />
+				</Rectangle>
+			</Grid>
+		</StackPanel>
+		<Grid Dock="Bottom" RowCount="1" ColumnCount="2">
+			<ping.Button Text="수정" Clicked="{goPlayerEdit}" />
+			<ping.Button Text="삭제" Clicked="{goPlayerDelete}" />
+		</Grid>
+	</DockPanel>
+</Page>

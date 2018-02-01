@@ -1,0 +1,32 @@
+<Page ux:Class="SplashPage">
+
+	<Router ux:Dependency="router" />
+
+	<JavaScript>
+		function goHomePage(){
+			router.push("home");
+		}
+
+		module.exports = {
+			goHome : goHomePage
+		}
+	</JavaScript>
+
+	<DockPanel ClipToBounds="true">
+		
+		<ping.Text2 Value="Created by L2NP" Alignment="BottomCenter" Opacity="0.6" />
+		<Grid>
+			<StackPanel Dock="Fill" Alignment="Top" Orientation="Vertical">
+				<Panel Margin="10" Alignment="Bottom" Height="200">
+					<ping.Text Value="TABLE TENNIS" Alignment="BottomCenter" FontSize="50" />
+				</Panel>
+				<Panel>
+					<ping.Text Value="GNU COMPUTER CENTER" Alignment="Center" />
+				</Panel>
+			</StackPanel>
+			<Image File="../images/pingicon.png" Width="100" Height="100" />
+			<ping.Button Text="Get Started" Clicked="{goHome}"/>
+		</Grid>
+		
+	</DockPanel>
+</Page>

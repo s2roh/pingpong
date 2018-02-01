@@ -1,0 +1,23 @@
+<Page ux:Class="GameResult">
+	<Router ux:Dependency="router" />
+
+	<JavaScript>
+		function goHome(){
+			router.push("home");
+		}
+		module.exports = {
+			goHome : goHome
+		}
+	</JavaScript>
+	
+	<DockPanel>
+		<Text Value="home" Alignment="TopLeft" Clicked="{goHome}" />
+		<Text Value="back" Alignment="TopRight" Clicked="{goBack}" />
+	</DockPanel>
+	<StackPanel>
+		<ping.Text Value="게임결과" FontSize="25" Alignment="Center" />
+	</StackPanel>
+	<Grid RowCount="1" ColumnCount="2">
+		<ping.Button Text="확인" Clicked="{goHome}" />
+	</Grid>
+</Page>

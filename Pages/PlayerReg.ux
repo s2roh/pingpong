@@ -1,0 +1,57 @@
+<Page ux:Class="PlayerReg">
+	<Router ux:Dependency="router" />
+
+	<JavaScript>
+		var observable = require("FuseJS/Observable");
+		var id = observable('');
+		var name = observable('');
+		var age = observable('');
+
+		        
+		function goHome(){
+			router.goto("home");
+		}
+		function goBack(){
+			router.goBack();
+		}
+		function goPlayerReg(){
+			fetch('http://203.255.2.68:3000/playerreg?id='+id.value+'&name='+name.value+'&age='+age.value
+			).then(function(response) {
+			    status = response.status;  // Get the HTTP status code
+			    response_ok = response.ok; // Is response.status in the 200-range?
+			    return response;    // This returns a promise
+			}).then(function(responseObject) {
+		  		 router.goto("playerlist");
+			}).catch(function(err) {
+					console.log('error' + err);
+			});
+		}
+		function goCancel(){
+			router.goBack()
+		}
+		module.exports = {
+			goHome : goHome,
+			goBack : goBack,
+			goPlayerReg : goPlayerReg,
+			goCancel : goCancel,
+			id:id,
+			name:name,
+			age:age
+		} 
+	</JavaScript>
+	<DockPanel>
+		<Text Value="home" Alignment="TopLeft" Clicked="{goHome}" />
+		<Text Value="back" Alignment="TopRight" Clicked="{goBack}" />
+		<StackPanel>
+			<Rectangle Height="50" />
+			<ping.Text Value="선수등록" FontSize="25" Alignment="Center" />
+			<ping.Text Value="등번호"/><TextBox Value="{id}" />
+			<ping.Text Value="성명"/><TextBox Value="{name}" />
+			<ping.Text Value="나이"/><TextBox Value="{age}" />
+		</StackPanel>
+		<Grid ColumnCount="2" Dock="Bottom">
+			<ping.Button Text="선수추가" Clicked="{goPlayerReg}" />
+			<ping.Button Text="작업취소" Clicked="{goCancel}" />
+		</Grid>
+	</DockPanel>	
+</Page>

@@ -1,0 +1,31 @@
+<Page ux:Class="GameSet">
+	<Router ux:Dependency="router" />
+
+	<JavaScript>
+		function goHome(){
+			router.push("home");
+		}
+		function goBack(){
+			router.goBack();
+		}
+		function goGamePlay(){
+			router.push("gameplay");
+		}
+		module.exports = {
+			goHome : goHome,
+			goBack : goBack,
+			goGamePlay : goGamePlay
+		}
+	</JavaScript>
+	<DockPanel>
+		<Text Value="home" Alignment="TopLeft" Clicked="{goHome}" />
+		<Text Value="back" Alignment="TopRight" Clicked="{goBack}" />
+	</DockPanel>
+	<StackPanel>
+		<ping.Text Value="게임설정" FontSize="25" Alignment="Center" />
+	</StackPanel>
+	<Grid RowCount="1" ColumnCount="2">
+		<ping.Button Text="게임시작" Clicked="{goGamePlay}" />
+		<ping.Button Text="설정취소" Clicked="{goBack}" />
+	</Grid>
+</Page>

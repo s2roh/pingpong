@@ -1,0 +1,77 @@
+<Page ux:Class="PlayerList">
+	<Router ux:Dependency="router" />
+
+	<JavaScript>
+	    // var results=[{id:1,name:'LeeSY',age:50},{id:2,name:'NohSS',age:40},{id:3,name:'ParkSH',age:37}];
+	     // var results = [{"id":1,"name":"LeeSY","age":70,"rank":2}];
+
+	    var Observable = require("FuseJS/Observable");
+	    var results = Observable();
+
+ 		var status = 0;
+		var response_ok = false;
+	
+		fetch('http://203.255.2.68:3000/playerlist').then(function(response) {
+		    status = response.status;  // Get the HTTP status code
+		    console.log(status);
+		    response_ok = response.ok; // Is response.status in the 200-range?
+		    return response.json();    // This returns a promise
+		}).then(function(responseObject) {
+	  		results.replaceAll(responseObject);
+			// results = JSON.parse(results);
+			console.log('results=' + results);
+		}).catch(function(err) {
+				console.log('error=' + err);
+		});
+	
+		function goPlayerAdd(){
+			router.goto("playerreg");
+		}
+		function goHome(arg){
+			console.log("arg="+ JSON.stringify(arg));
+			router.goto("home");
+		}
+		function goBack(){
+			router.goBack();
+		}
+
+		function goPlayerView(arg){
+			console.log("arg="+ JSON.stringify(arg));
+			router.goto("playerview",arg.data);
+		}
+
+		module.exports = {
+			goHome : goHome,
+			goBack : goBack,
+			goPlayerAdd : goPlayerAdd,
+			goPlayerView : goPlayerView,
+			results : results           
+		} 
+	</JavaScript>
+	<DockPanel ClipToBounds="true">
+		<Text Value="home" Alignment="TopLeft" Clicked="{goHome}" />
+		<Text Value="back" Alignment="TopRight" Clicked="{goBack}" />
+		<StackPanel>
+			<Rectangle Height="50" />
+			<ping.Text Value="선수관리" FontSize="25" Alignment="Center" />
+			<Grid RowCount="1" ColumnCount="4" ContentAlignment="Center">
+				<ping.Text Value="등번호" />
+		        <ping.Text Value="성명" />
+				<ping.Text Value="나이" />
+				<ping.Text Value="랭킹" />
+			</Grid>
+
+			<Each Items="{results}">
+				<Grid RowCount="1" ColumnCount="4" Clicked="{goPlayerView}" ContentAlignment="Center">
+					<ping.Text Value="{id}" />
+				    <ping.Text Value="{name}" />
+					<ping.Text Value="{age}" />
+					<ping.Text Value="{rank}" />
+				</Grid>	
+				<Separator />
+	        </Each>				   	
+		</StackPanel>
+		<ping.Button Dock="Bottom" Text="선수등록" Clicked="{goPlayerAdd}" />
+	</DockPanel>
+
+</Page>

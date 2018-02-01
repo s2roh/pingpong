@@ -1,0 +1,6 @@
+<Page ux:Class="ScorePanel" Width="200" Height="200" Background="#FFB363" Alignment="Center">
+	<string ux:Property="Score" />
+	<Rectangle>
+		<Text FontSize="150" TextColor="#000" Value="{ReadProperty Score}" TextAlignment="Center" />
+	</Rectangle>
+</Page>

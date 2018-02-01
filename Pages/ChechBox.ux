@@ -1,0 +1,15 @@
+<Rectangle ux:Class="CheckBox" BoxSizing="FillAspect" Aspect="1" Margin="5" HitTestMode="LocalBounds" Width="24" Height="24" Color="White"  >
+	<string ux:Property="Value" />
+	<Rectangle ux:Name="innerCheckbox" Width="15" Height="15" Color="White" />
+	<Selectable Value="{Property Value}" />
+
+    <WhileSelected>
+        <Change innerCheckbox.Color="#d3634b" />
+    </WhileSelected>
+    <Rectangle Layer="Background">
+        <Stroke Color="#d3634b" />
+    </Rectangle>
+    <Clicked>
+    	<ToggleSelection />
+    </Clicked>
+</Rectangle>

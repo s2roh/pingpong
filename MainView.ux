@@ -1,0 +1,20 @@
+<App>
+	<Router ux:Name="router" />
+	<ClientPanel>
+		<Navigator DefaultPath="splash">
+			<SplashPage ux:Template="splash" router="router" />
+			<HomePage ux:Template="home" router="router" />
+			<PlayerList ux:Template="playerlist" router="router" />
+			<PlayerReg ux:Template="playerreg" router="router" />
+			<PlayerEdit ux:Template="playeredit" router="router" />
+			<PlayerView ux:Template="playerview" router="router" />
+			<GameSet ux:Template="gameset" router="router" />
+			<GamePlay ux:Template="gameplay" router="router" />
+			<GameResult ux:Template="gameresult" router="router" />
+			<Fight ux:Template="fight" router="router" />
+			<FightView ux:Template="fightview" router="router" />
+			<GameManage ux:Template="gamemanage" router="router" />
+			<StackPanel> </StackPanel>
+		</Navigator>
+	</ClientPanel>
+</App>

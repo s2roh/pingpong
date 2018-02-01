@@ -1,0 +1,13 @@
+<Panel ux:Class="ping.Button" Margin="20,10" Padding="20,10" Alignment="Center">
+	<string ux:Property="Text" />
+	
+	<Rectangle Layer="Background" Color="#bb4434" CornerRadius="4" Width="150">
+		<DropShadow Angle="90" Distance="1" Spread="0.2" Size="2" Color="#00000060" />
+	</Rectangle>
+
+	<ping.Text Value="{ReadProperty Text}" Color="#ffffff " TextAlignment="Center" FontSize="18" />
+
+	<WhilePressed>
+		<Scale Factor=".95" Duration=".08" Easing="QuadraticOut" />
+	</WhilePressed>
+</Panel>
